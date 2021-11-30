@@ -23,6 +23,7 @@
   import GiSpikedDragonHead from "svelte-icons/gi/GiSpikedDragonHead.svelte";
   import GiMagicSwirl from "svelte-icons/gi/GiMagicSwirl.svelte";
   import GiSwapBag from "svelte-icons/gi/GiSwapBag.svelte";
+
   export let storyData;
 
   let tagFilter = "";
