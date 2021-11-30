@@ -17,14 +17,13 @@
     "cssnano": "^5.0.12",
     "mdsvex": "^0.9.8",
     "postcss": "^8.4.4",
+    "lodash": "^4.17.21",
     "postcss-load-config": "^3.1.0",
     "svelte": "^3.44.2",
     "svelte-preprocess": "^ 4.9.8",
-    "tailwindcss": "^2.2.19"
-  },
-  "type": "module",
-  "dependencies": {
+    "tailwindcss": "^2.2.19",
     "daisyui": "^1.16.2",
     "svelte-icons": "^2.1.0"
-  }
+  },
+  "type": "module"
 }

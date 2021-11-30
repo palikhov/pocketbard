@@ -1,5 +1,8 @@
 <script context="module">
+  import orderBy from "lodash/sortBy";
+
   const stories = import.meta.glob("./story/*.svx");
+
   let body = [];
   for (const path in stories) {
     body.push(stories[path]().then(({ metadata }) => metadata));
@@ -17,6 +20,11 @@
 
 <script>
   import MdErrorOutline from "svelte-icons/md/MdErrorOutline.svelte";
+  import GiCastle from "svelte-icons/gi/GiCastle.svelte";
+  import GiDwarfFace from "svelte-icons/gi/GiDwarfFace.svelte";
+  import GiSpikedDragonHead from "svelte-icons/gi/GiSpikedDragonHead.svelte";
+  import GiMagicSwirl from "svelte-icons/gi/GiMagicSwirl.svelte";
+  import GiSwapBag from "svelte-icons/gi/GiSwapBag.svelte";
 
   export let storyData;
 
@@ -45,12 +53,12 @@
   <h4>Историй в репертуаре: {tagged.length}</h4>
 </div>
 
-<div class="btn-group items-center my-5">
-  <button class="btn btn-xs btn-success" on:click={() => setTag("сцены")}>сцены</button>
-  <button class="btn btn-xs btn-error" on:click={() => setTag("персонажи")}>персонажи</button>
-  <button class="btn btn-xs btn-primary" on:click={() => setTag("существа")}>существа</button>
-  <button class="btn btn-xs btn-secondary" on:click={() => setTag("заклинания")}>заклинания</button>
-  <button class="btn btn-xs btn-neutral" on:click={() => setTag("предметы")}>предметы</button>
+<div class="items-center my-2">
+  <button class="btn btn-success p-1" on:click={() => setTag("сцена")}><GiCastle /></button>
+  <button class="btn btn-error p-1" on:click={() => setTag("персонаж")}><GiDwarfFace /></button>
+  <button class="btn btn-primary p-1" on:click={() => setTag("существо")}><GiSpikedDragonHead /></button>
+  <button class="btn btn-secondary p-1" on:click={() => setTag("заклинание")}><GiMagicSwirl /></button>
+  <button class="btn btn-active p-1" on:click={() => setTag("предмет")}><GiSwapBag /></button>
 </div>
 
 <div class="form-control my-5">
@@ -66,23 +74,23 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-  {#each tagged as { title, slug, category, tags, author, description }}
-    <div class="card-body py-2 bg-base-100">
+  {#each orderBy(tagged, "title", "asc") as { title, slug, category, tags, author, description }}
+    <div class="card-body py-2 rounded-md bg-base-100">
       <a sveltekit:prefetch href="/story/{slug}"
         ><h2
           class="text-2xl card-title"
-          class:text-success={category == "сцены"}
-          class:text-error={category == "персонажи"}
-          class:text-primary={category == "существа"}
-          class:text-secondary={category == "заклинания"}
-          class:text-neutral={category == "предметы"}
+          class:text-success={category == "сцена"}
+          class:text-error={category == "персонаж"}
+          class:text-primary={category == "существо"}
+          class:text-secondary={category == "заклинание"}
+          class:text-neutral-content={category == "предмет"}
         >
           {title}
         </h2>
       </a>
       <div class="mb-4 space-x-1 card-actions">
         {#each tags as tag}
-          <button class="badge badge-outline rounded-md" class:text-success={tagFilter == tag} on:click={() => setTag(tag)}>{tag}</button>
+          <button class="badge rounded-md" class:text-success={tagFilter == tag} on:click={() => setTag(tag)}>{tag}</button>
         {/each}
       </div>
       <p class="prose text-sm">

@@ -44,7 +44,7 @@
 
   <div class="mt-20 p-1 rounded">
     <b>Тэги:</b>
-    {#each tags as tag}<span class="mx-1 badge badge-outline rounded-md">{tag}</span>{/each}
+    {#each tags as tag}<span class="mx-1 badge rounded-md">{tag}</span>{/each}
     <br />
     <b>Автор:</b>
     {author}
