@@ -3,7 +3,9 @@ const forms = require("@tailwindcss/forms");
 const daisyui = require("daisyui");
 
 const config = {
-  content: ["./src/**/*.{html,js,svelte,ts,svx}"],
+  mode: "jit",
+  content: ["./src/**/*.{html,js,svelte}"],
+  safelist: [/data-theme$/],
 
   theme: {
     extend: {},
