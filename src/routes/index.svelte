@@ -1,50 +1,37 @@
 <script context="module">
-  import { page } from "$app/stores";
-
-  const songs = import.meta.glob("./song/*.svx");
+  const stories = import.meta.glob("./story/*.svx");
   let body = [];
-  for (const path in songs) {
-    body.push(songs[path]().then(({ metadata }) => metadata));
+  for (const path in stories) {
+    body.push(stories[path]().then(({ metadata }) => metadata));
   }
 
   export async function load() {
-    const songs = await Promise.all(body);
+    const stories = await Promise.all(body);
     return {
       props: {
-        songData: songs,
+        storyData: stories,
       },
     };
   }
 </script>
 
 <script>
-  import MdInsertLink from "svelte-icons/md/MdInsertLink.svelte";
-  import MdFullscreen from "svelte-icons/md/MdFullscreen.svelte";
   import MdErrorOutline from "svelte-icons/md/MdErrorOutline.svelte";
-  import About from "./about.svelte";
 
-  export let songData;
+  export let storyData;
 
   let tagFilter = "";
 
-  $: tagged = songData.filter((song) => {
+  $: tagged = storyData.filter((story) => {
     return (
-      song.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
-      song.category.toLowerCase().includes(tagFilter.toLowerCase()) ||
-      song.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))
+      story.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
+      story.category.toLowerCase().includes(tagFilter.toLowerCase()) ||
+      story.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))
     );
   });
 
   function setTag(newTag) {
     tagFilter = newTag;
-  }
-
-  function writeClipboard(clipboardText) {
-    var type = "text/plain";
-    var blob = new Blob([clipboardText], { type });
-    var data = [new ClipboardItem({ [type]: blob })];
-
-    navigator.clipboard.write(data);
   }
 </script>
 
@@ -81,7 +68,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
   {#each tagged as { title, slug, category, tags, author, description }}
     <div class="card-body py-2 bg-base-100">
-      <a sveltekit:prefetch href="/song/{slug}"
+      <a sveltekit:prefetch href="/story/{slug}"
         ><h2
           class="text-2xl card-title"
           class:text-success={category == "сцены"}
@@ -106,7 +93,7 @@
     <div class="alert">
       <div class="flex-0">
         <span class="w-8 h-8 mr-8"><MdErrorOutline /> </span>
-        <span>Не найдено песен о "{tagFilter}"</span>
+        <span>Не найдено историй о "{tagFilter}"</span>
       </div>
     </div>
   {/each}

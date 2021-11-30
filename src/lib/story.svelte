@@ -1,9 +1,22 @@
+<script context="module">
+  import { page } from "$app/stores";
+</script>
+
 <script>
   export let title;
+  export let slug;
   export let category;
   export let tags;
   export let author;
   export let description;
+
+  function writeClipboard(clipboardText) {
+    var type = "text/plain";
+    var blob = new Blob([clipboardText], { type });
+    var data = [new ClipboardItem({ [type]: blob })];
+
+    navigator.clipboard.write(data);
+  }
 </script>
 
 <svelte:head>
@@ -35,5 +48,10 @@
     <br />
     <b>Автор:</b>
     {author}
+  </div>
+
+  <div class="my-5 space-x-2">
+    <a class="btn btn-sm" href="/">Вернуться</a>
+    <button class="btn btn-sm btn-primary" on:click={() => writeClipboard($page.host + "/story/" + slug)}>Копировать ссылку</button>
   </div>
 </div>
