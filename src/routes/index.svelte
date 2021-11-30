@@ -27,17 +27,23 @@
 
   let tagFilter = "";
 
-  $: tagged = storyData.filter((story) => {
-    return (
-      story.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
-      story.category.toLowerCase().includes(tagFilter.toLowerCase()) ||
-      story.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))
-    );
-  });
+  $: tagged = storyData
+    .filter((story) => {
+      return (
+        story.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
+        story.category.toLowerCase().includes(tagFilter.toLowerCase()) ||
+        story.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))
+      );
+    })
+    .sort(sortBy("title"));
 
   function setTag(newTag) {
     tagFilter = newTag;
   }
+
+  const sortBy = (key) => {
+    return (a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0);
+  };
 </script>
 
 <svelte:head>
