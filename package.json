@@ -25,7 +25,6 @@
   "type": "module",
   "dependencies": {
     "daisyui": "^1.16.2",
-    "svelte-icons": "^2.1.0",
-    "lodash": "^4.17.21"
+    "svelte-icons": "^2.1.0"
   }
 }

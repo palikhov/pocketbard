@@ -17,14 +17,12 @@
 </script>
 
 <script>
-  import orderBy from "lodash/sortBy";
   import MdErrorOutline from "svelte-icons/md/MdErrorOutline.svelte";
   import GiCastle from "svelte-icons/gi/GiCastle.svelte";
   import GiDwarfFace from "svelte-icons/gi/GiDwarfFace.svelte";
   import GiSpikedDragonHead from "svelte-icons/gi/GiSpikedDragonHead.svelte";
   import GiMagicSwirl from "svelte-icons/gi/GiMagicSwirl.svelte";
   import GiSwapBag from "svelte-icons/gi/GiSwapBag.svelte";
-
   export let storyData;
 
   let tagFilter = "";
@@ -73,7 +71,7 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-  {#each orderBy(tagged, "title", "asc") as { title, slug, category, tags, author, description }}
+  {#each tagged as { title, slug, category, tags, author, description }}
     <div class="card-body py-2 rounded-md bg-base-100">
       <a sveltekit:prefetch href="/story/{slug}"
         ><h2
