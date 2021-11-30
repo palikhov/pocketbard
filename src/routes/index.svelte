@@ -1,6 +1,4 @@
 <script context="module">
-  import orderBy from "lodash/sortBy";
-
   const stories = import.meta.glob("./story/*.svx");
 
   let body = [];
@@ -19,6 +17,7 @@
 </script>
 
 <script>
+  import orderBy from "lodash/sortBy";
   import MdErrorOutline from "svelte-icons/md/MdErrorOutline.svelte";
   import GiCastle from "svelte-icons/gi/GiCastle.svelte";
   import GiDwarfFace from "svelte-icons/gi/GiDwarfFace.svelte";
