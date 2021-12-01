@@ -14,7 +14,7 @@ const config = {
   plugins: [forms, typography, daisyui],
 
   daisyui: {
-    themes: false,
+    themes: ["dark"],
   },
 };
 
