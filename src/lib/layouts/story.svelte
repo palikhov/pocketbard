@@ -29,7 +29,7 @@
     <h3 class="flex-1 flex-start font-normal">{category}</h3>
     <a class="flex-end btn btn-sm btn-sq" sveltekit:prefetch href="/">✕</a>
   </div>
-  <div class="prose prose-sm font-serif">
+  <div class="prose font-serif">
     <h1>{title}</h1>
     <p>{description}</p>
     <p><slot /></p>
