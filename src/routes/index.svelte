@@ -27,19 +27,25 @@
   export let storyData;
 
   let tagFilter = "";
+  let categoryFilter = "сцена";
 
   $: tagged = storyData
     .filter((story) => {
       return (
-        story.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
-        story.category.toLowerCase().includes(tagFilter.toLowerCase()) ||
-        story.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))
+        (story.title.toLowerCase().includes(tagFilter.toLowerCase()) ||
+          story.description.toLowerCase().includes(tagFilter.toLowerCase()) ||
+          story.tags.some((tag) => tag.toLowerCase().includes(tagFilter.toLowerCase()))) &&
+        story.category.toLowerCase().includes(categoryFilter.toLowerCase())
       );
     })
     .sort(sortBy("title"));
 
   function setTag(newTag) {
     tagFilter = newTag;
+  }
+
+  function setCategory(newCategory) {
+    categoryFilter = newCategory;
   }
 
   const sortBy = (key) => {
@@ -51,27 +57,35 @@
   <title>Карманный Бард</title>
 </svelte:head>
 
-<div class="prose mb-10">
-  <h1>Карманный Бард</h1>
-</div>
+<h1 class="mb-10 text-3xl font-bold">Карманный Бард</h1>
 
-<div class="items-center my-2">
-  <button class="btn btn-success p-1" on:click={() => setTag("сцена")}><GiCastle /></button>
-  <button class="btn btn-info p-1" on:click={() => setTag("персонаж")}><GiWomanElfFace /></button>
-  <button class="btn btn-error p-1" on:click={() => setTag("существо")}><GiSpikedDragonHead /></button>
-  <button class="btn btn-primary p-1" on:click={() => setTag("заклинание")}><GiMagicSwirl /></button>
-  <button class="btn btn-active p-1" on:click={() => setTag("предмет")}><GiLockedChest /></button>
+<div class="flex text-sm font-normal space-x-2">
+  <button class="text-success flex" class:link={categoryFilter == "сцена"} on:click={() => setCategory("сцена")}
+    ><span class="inline-block w-5 h-5"><GiCastle /></span>Сцены</button
+  >
+  <button class="text-info flex" class:link={categoryFilter == "персонаж"} on:click={() => setCategory("персонаж")}
+    ><span class="inline-block w-5 h-5"><GiWomanElfFace /></span>Персонажи</button
+  >
+  <button class="text-error flex" class:link={categoryFilter == "существо"} on:click={() => setCategory("существо")}
+    ><span class="inline-block w-5 h-5"><GiSpikedDragonHead /></span>Существа</button
+  >
+  <button class="text-purple-400 flex" class:link={categoryFilter == "заклинание"} on:click={() => setCategory("заклинание")}
+    ><span class="inline-block w-5 h-5"><GiMagicSwirl /></span>Заклинания</button
+  >
+  <button class="text-neutral-content flex" class:link={categoryFilter == "предмет"} on:click={() => setCategory("предмет")}
+    ><span class="inline-block w-5 h-5"><GiLockedChest /></span>Предметы</button
+  >
 </div>
 
 <div class="form-control my-5">
   <div class="relative">
-    <input type="text" class="w-full lg:w-1/2 pr-16 input" placeholder="название, категория, тэг..." bind:value={tagFilter} />
+    <input type="text" class="w-full lg:w-1/2 pr-16 input" placeholder="название или тэг..." bind:value={tagFilter} />
     <button class="absolute top-0 right-0 lg:right-1/2 rounded-l-none btn btn-ghost" on:click={() => setTag("")}>✕</button>
   </div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-  {#each tagged as { title, slug, category, tags, author, description }}
+  {#each tagged as { title, slug, category, tags, description }}
     <div class="p-4 rounded-md bg-base-100">
       <a sveltekit:prefetch href="/story/{slug}"
         ><h2
@@ -79,7 +93,7 @@
           class:text-success={category == "сцена"}
           class:text-info={category == "персонаж"}
           class:text-error={category == "существо"}
-          class:text-primary={category == "заклинание"}
+          class:text-purple-400={category == "заклинание"}
           class:text-neutral-content={category == "предмет"}
         >
           {title}

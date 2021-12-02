@@ -6,7 +6,7 @@ const config = {
   },
 
   layout: {
-    story: "./src/lib/story.svelte",
+    story: "./src/lib/layouts/story.svelte",
   },
 
   remarkPlugins: [],

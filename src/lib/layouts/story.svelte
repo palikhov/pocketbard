@@ -38,11 +38,11 @@
 
   <div class="prose">
     <h1>{title}</h1>
-    <p>{description}</p>
+    <p class="font-serif">{description}</p>
     <p><slot /></p>
   </div>
 
-  <div class="mt-20 p-1 rounded">
+  <div class="my-10 p-1 rounded">
     <b>Тэги:</b>
     {#each tags as tag}<span class="mx-1 badge rounded-md">{tag}</span>{/each}
     <br />
@@ -50,7 +50,7 @@
     {author}
   </div>
 
-  <div class="my-5 space-x-2">
+  <div class="mb-5 space-x-2">
     <a class="btn btn-sm" href="/">Вернуться</a>
     <button class="btn btn-sm btn-primary" on:click={() => writeClipboard($page.host + "/story/" + slug)}>Копировать ссылку</button>
   </div>

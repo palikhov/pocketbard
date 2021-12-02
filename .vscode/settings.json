@@ -1,0 +1,20 @@
+{
+	"files.associations": {
+		"[*.md, *.svx, *.mdsvex]": "mdx",
+		"*.xml": "html", 
+		"*.svg": "html" 
+	},
+
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+
+	"editor.formatOnSave": true,
+
+	"editor.codeActionsOnSave": {
+		"source.fixAll.stylelint": true
+	},
+
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
+
+}
