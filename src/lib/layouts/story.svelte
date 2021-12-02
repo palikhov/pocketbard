@@ -7,6 +7,7 @@
   export let slug;
   export let category;
   export let tags;
+  export let linked;
   export let author;
   export let description;
 
@@ -28,13 +29,17 @@
     <h3 class="flex-1 flex-start font-normal">{category}</h3>
     <a class="flex-end btn btn-sm btn-sq" sveltekit:prefetch href="/">✕</a>
   </div>
-  <div class="prose prose-sm">
+  <div class="prose prose-sm font-serif">
     <h1>{title}</h1>
-    <p class="font-serif">{description}</p>
+    <p>{description}</p>
     <p><slot /></p>
   </div>
 
   <div class="my-10 p-1 rounded">
+    {#if linked && linked.length > 0}<b>Связанные истории:</b>
+      {#each linked as link}<a class="link" sveltekit:prefetch href="./{link.slug}">{link.title}</a>{/each}
+      <br />
+    {/if}
     <b>Тэги:</b>
     {#each tags as tag}<span class="mx-1 badge rounded-md">{tag}</span>{/each}
     <br />
