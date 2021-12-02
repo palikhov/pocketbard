@@ -23,20 +23,12 @@
   <title>{title} | Карманный Бард</title>
 </svelte:head>
 
-<div class="container mx-auto max-w-2xl p-5 rounded-lg bg-base-100">
-  <div class="text-sm breadcrumbs">
-    <ul>
-      <li>
-        <a href="/">все истории</a>
-      </li>
-      <li>
-        {category}
-      </li>
-      <li />
-    </ul>
+<div class="container m-auto max-w-xl  p-5 rounded-lg bg-base-100">
+  <div class="flex">
+    <h3 class="flex-1 flex-start font-normal">{category}</h3>
+    <a class="flex-end btn btn-sm btn-sq" sveltekit:prefetch href="/">✕</a>
   </div>
-
-  <div class="prose">
+  <div class="prose prose-sm">
     <h1>{title}</h1>
     <p class="font-serif">{description}</p>
     <p><slot /></p>
@@ -51,7 +43,9 @@
   </div>
 
   <div class="mb-5 space-x-2">
-    <a class="btn btn-sm" href="/">Вернуться</a>
-    <button class="btn btn-sm btn-primary" on:click={() => writeClipboard($page.host + "/story/" + slug)}>Копировать ссылку</button>
+    <a class="btn btn-sm btn-ghost rounded-md" sveltekit:prefetch href="/">Вернуться</a>
+    <button class="btn btn-sm btn-outline rounded-md" on:click={() => writeClipboard($page.host + "/story/" + slug)}
+      >Копировать ссылку</button
+    >
   </div>
 </div>
